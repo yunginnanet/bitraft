@@ -51,8 +51,12 @@ github.com/prologic/bitcask v0.0.0-20190319214626-2d9bfbb408e1 h1:KqRtI5Un5G77Ch
 github.com/prologic/bitcask v0.0.0-20190319214626-2d9bfbb408e1/go.mod h1:VaC8qqH0Pjnl+HdhH/zA1b6xSDW3I1PAJGVSTDQ/xJ8=
 github.com/prologic/bitcask v0.1.1 h1:D85iGEDgKs2nvg2YyrfDPLKa7J5PoyD9vC5Xf71fSrg=
 github.com/prologic/bitcask v0.1.1/go.mod h1:VaC8qqH0Pjnl+HdhH/zA1b6xSDW3I1PAJGVSTDQ/xJ8=
+github.com/prologic/bitcask v0.1.2 h1:ymJM2dCP/RZYRta2OFnliFeYiJCOcAzxjkMT3H+2ivQ=
+github.com/prologic/bitcask v0.1.2/go.mod h1:srcIhxMWgpJ4xAHSnL1TzcZozAH6MPSibwx+KmwQBss=
 github.com/prologic/trie v0.0.0-20190316011403-395e39dac705 h1:2J+cSlAeECj0lfMKSmM7n5OlIio+yLovaKLZJzwLc6U=
 github.com/prologic/trie v0.0.0-20190316011403-395e39dac705/go.mod h1:LFuDmpHJGmciXd8Rl5YMhVlLMps9gz2GtYLzwxrFhzs=
+github.com/prologic/trie v0.0.0-20190322091023-3972df81f9b5 h1:H8dTZzU3aWNQnuRyiT45J9szv7EFakAhFzsFq27t3Uo=
+github.com/prologic/trie v0.0.0-20190322091023-3972df81f9b5/go.mod h1:LFuDmpHJGmciXd8Rl5YMhVlLMps9gz2GtYLzwxrFhzs=
 github.com/sirupsen/logrus v1.3.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
 github.com/sirupsen/logrus v1.4.0 h1:yKenngtzGh+cUSSh6GWbxW2abRqhYUSR/t/6+2QqNvE=
 github.com/sirupsen/logrus v1.4.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
