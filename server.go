@@ -336,11 +336,8 @@ func (kvm *Machine) cmdDel(m finn.Applier, conn redcon.Conn, cmd redcon.Command)
 }
 
 func (kvm *Machine) cmdKeys(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
-	if len(cmd.Args) < 2 {
-		return nil, finn.ErrWrongNumberOfArguments
-	}
 	var withvalues bool
-	for i := 2; i < len(cmd.Args); i++ {
+	for i := 1; i < len(cmd.Args); i++ {
 		switch strings.ToLower(string(cmd.Args[i])) {
 		default:
 			return nil, errSyntaxError

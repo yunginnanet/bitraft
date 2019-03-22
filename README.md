@@ -26,25 +26,6 @@ FLUSHDB
 SHUTDOWN
 ```
 
-## Key scanning
-
-The `KEYS` command returns keys and values, ordered by keys. 
-The `PIVOT` keyword allows for efficient paging.
-For example:
-```
-redis> MSET key1 1 key2 2 key3 3 key4 4
-OK
-redis> KEYS * LIMIT 2
-1) "key1"
-2) "key2"
-redis> KEYS * PIVOT key2 LIMIT 2
-1) "key3"
-2) "key4"
-```
-
-The `PDEL` commands will delete all items matching the specified pattern.
-
-
 ## Backup and Restore
 
 To backup data:
