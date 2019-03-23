@@ -7,7 +7,7 @@ require (
 	github.com/golang/snappy v0.0.0-20170215233205-553a64147049
 	github.com/hashicorp/go-msgpack v0.0.0-20150518234257-fa3f63826f7c
 	github.com/hashicorp/raft v0.0.0-20160824023112-5f09c4ffdbcd
-	github.com/prologic/bitcask v0.1.2
+	github.com/prologic/bitcask v0.1.3
 	github.com/sirupsen/logrus v1.4.0
 	github.com/spf13/pflag v1.0.3
 	github.com/stretchr/testify v1.3.0
@@ -22,5 +22,7 @@ require (
 	github.com/tidwall/redcon v1.0.0
 	github.com/tidwall/redlog v0.0.0-20170204190734-550629ebbfa9
 	golang.org/x/crypto v0.0.0-20190320223903-b7391e95e576
+	golang.org/x/net v0.0.0-20190322120337-addf6b3196f6 // indirect
 	golang.org/x/sys v0.0.0-20190322080309-f49334f85ddc
+	golang.org/x/tools v0.0.0-20190322203728-c1a832b0ad89 // indirect
 )
