@@ -5,6 +5,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/hashicorp/go-sockaddr/template"
 	log "github.com/sirupsen/logrus"
 	flag "github.com/spf13/pflag"
 	"github.com/tidwall/finn"
@@ -39,8 +40,8 @@ func init() {
 	flag.StringVarP(&dir, "data", "d", "data", "data directory")
 	flag.StringVarP(&logdir, "log-dir", "l", "", "log directory. If blank it will equals --data")
 	flag.StringVarP(&join, "join", "j", "", "Join a cluster by providing an address")
-	flag.StringVar(&consistency, "consistency", "low", "Consistency (low,medium,high)")
-	flag.StringVar(&durability, "durability", "low", "Durability (low,medium,high)")
+	flag.StringVar(&consistency, "consistency", "high", "Consistency (low,medium,high)")
+	flag.StringVar(&durability, "durability", "high", "Durability (low,medium,high)")
 	flag.StringVar(&parseSnapshot, "parse-snapshot", "", "Parse and output a snapshot to Redis format")
 }
 
@@ -94,6 +95,18 @@ func main() {
 	if logdir == "" {
 		logdir = dir
 	}
+
+	mustParse := func(addr string) string {
+		r, err := template.Parse(addr)
+		if err != nil {
+			log.WithError(err).Fatalf("error parsing addr %s: %s", addr, err)
+		}
+		return r
+	}
+
+	log.WithField("bind", bind).Debug("bind raw")
+	bind = mustParse(bind)
+	log.WithField("bind", bind).Debug("bind parsed")
 
 	if err := ListenAndServe(bind, join, dir, logdir, lconsistency, ldurability); err != nil {
 		log.Warningf("%v", err)

@@ -6,6 +6,7 @@ require (
 	github.com/garyburd/redigo v1.0.0
 	github.com/golang/snappy v0.0.0-20170215233205-553a64147049
 	github.com/hashicorp/go-msgpack v0.0.0-20150518234257-fa3f63826f7c
+	github.com/hashicorp/go-sockaddr v1.0.2
 	github.com/hashicorp/raft v0.0.0-20160824023112-5f09c4ffdbcd
 	github.com/prologic/bitcask v0.1.4
 	github.com/sirupsen/logrus v1.4.0
