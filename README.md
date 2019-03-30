@@ -15,6 +15,24 @@ Based off of [kvnode](https://github.com/tidwall/kvnode).
 - Raft support with [Finn](https://github.com/tidwall/finn) commands
 - Compatible with existing Redis clients
 
+## Usage
+
+```#!bash
+$ go get github.com/prologic/bitraft
+$ bitraft
+```
+
+## Docker
+
+You can also use the [Bitraft Docker Image](https://cloud.docker.com/u/prologic/repository/docker/prologic/bitraft):
+
+```#!bash
+$ docker pull prologic/bitraft
+$ docker run -d -p 4920:4920 prologic/bitraft
+```
+
+## Example session
+
 Commands:
 
 ```
