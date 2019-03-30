@@ -35,7 +35,7 @@ func init() {
 
 	flag.IntVar(&maxDatafileSize, "max-datafile-size", 1<<20, "maximum datafile size in bytes")
 
-	flag.StringVarP(&bind, "bind", "b", "127.0.0.1:4920", "bind/discoverable ip:port")
+	flag.StringVarP(&bind, "bind", "b", ":4920", "bind/discoverable ip:port")
 	flag.StringVarP(&dir, "data", "d", "data", "data directory")
 	flag.StringVarP(&logdir, "log-dir", "l", "", "log directory. If blank it will equals --data")
 	flag.StringVarP(&join, "join", "j", "", "Join a cluster by providing an address")
