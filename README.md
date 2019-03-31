@@ -2,6 +2,8 @@
 
 [![Build Status](https://cloud.drone.io/api/badges/prologic/bitraft/status.svg)](https://cloud.drone.io/prologic/bitraft)
 [![Go Report Card](https://goreportcard.com/badge/prologic/bitraft)](https://goreportcard.com/report/prologic/bitraft)
+[![GitHub license](https://img.shields.io/github/license/prologic/bitraft.svg)](https://github.com/prologic/bitraft)
+[![Github all releases](https://img.shields.io/github/downloads/prologic/bitraft/total.svg)](https://github.com/prologic/bitraft/releases)
 
 A [Bitcask](https://github.com/prologic/bitcask) Distributed Key/Value store
 using [Raft](https://github.com/hashicorp/raft) for concensus with a
