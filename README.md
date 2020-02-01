@@ -1,6 +1,10 @@
 # bitraft
 
-[![Build Status](https://cloud.drone.io/api/badges/prologic/bitraft/status.svg)](https://cloud.drone.io/prologic/bitraft)
+![](https://github.com/prologic/bitraft/workflows/Coverage/badge.svg)
+![](https://github.com/prologic/bitraft/workflows/Docker/badge.svg)
+![](https://github.com/prologic/bitraft/workflows/Go/badge.svg)
+![](https://github.com/prologic/bitraft/workflows/ReviewDog/badge.svg)
+
 [![Go Report Card](https://goreportcard.com/badge/prologic/bitraft)](https://goreportcard.com/report/prologic/bitraft)
 [![GitHub license](https://img.shields.io/github/license/prologic/bitraft.svg)](https://github.com/prologic/bitraft)
 [![Github all releases](https://img.shields.io/github/downloads/prologic/bitraft/total.svg)](https://github.com/prologic/bitraft/releases)
