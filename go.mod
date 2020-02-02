@@ -14,7 +14,6 @@ require (
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prologic/bitcask v0.3.5
-	github.com/prologic/trie v0.0.0-20190322091023-3972df81f9b5 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/pflag v1.0.3
 	github.com/stretchr/testify v1.3.0
@@ -30,9 +29,12 @@ require (
 	golang.org/x/exp v0.0.0-20200119233911-0405dc783f0a // indirect
 	golang.org/x/net v0.0.0-20190724013045-ca1201d0de80 // indirect
 	google.golang.org/appengine v1.6.1 // indirect
+	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22 // indirect
 	gopkg.in/vmihailenco/msgpack.v2 v2.9.1 // indirect
-	labix.org/v2/mgo v0.0.0-20140701140051-000000000287 // indirect
-	launchpad.net/gocheck v0.0.0-20140225173054-000000000087 // indirect
 )
 
 go 1.13
+
+replace labix.org/v2/mgo => gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
+
+replace launchpad.net/gocheck => github.com/go-check/check v0.0.0-20190902080502-41f04d3bba15
