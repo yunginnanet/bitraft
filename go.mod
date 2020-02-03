@@ -16,7 +16,7 @@ require (
 	github.com/prologic/bitcask v0.3.5
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/pflag v1.0.3
-	github.com/stretchr/testify v1.3.0
+	github.com/stretchr/testify v1.4.0
 	github.com/syndtr/goleveldb v0.0.0-20161227110519-23851d93a229 // indirect
 	github.com/tidwall/finn v0.1.0
 	github.com/tidwall/raft-boltdb v0.0.0-20160909211738-25b87f2c5677 // indirect
