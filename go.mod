@@ -23,7 +23,7 @@ require (
 	github.com/tidwall/raft-fastlog v0.0.0-20160922202426-2f0d0a0ce558 // indirect
 	github.com/tidwall/raft-leveldb v0.0.0-20170127185243-ada471496dc9 // indirect
 	github.com/tidwall/raft-redcon v0.1.0 // indirect
-	github.com/tidwall/redcon v1.0.0
+	github.com/tidwall/redcon v1.2.0
 	github.com/tidwall/redlog v0.0.0-20170204190734-550629ebbfa9 // indirect
 	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect
 	golang.org/x/exp v0.0.0-20200119233911-0405dc783f0a // indirect

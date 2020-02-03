@@ -197,6 +197,8 @@ github.com/tidwall/raft-redcon v0.1.0 h1:qwYaFaAVNFleY2EFm0j7UK4vEpoNa19ohH7U4id
 github.com/tidwall/raft-redcon v0.1.0/go.mod h1:YhoECfJs8MXbrwak9H7wKYDMZ3rMaB7el7zZ7MRw9Xw=
 github.com/tidwall/redcon v1.0.0 h1:D4AzzJ81Afeh144fgnj5H0aSVPBBJ5RI9Rzj0zThU+E=
 github.com/tidwall/redcon v1.0.0/go.mod h1:bdYBm4rlcWpst2XMwKVzWDF9CoUxEbUmM7CQrKeOZas=
+github.com/tidwall/redcon v1.2.0 h1:NlAWEeGv1OUGontltI9sEdOGbXZiB0jj2aDELNDvZ0Q=
+github.com/tidwall/redcon v1.2.0/go.mod h1:bdYBm4rlcWpst2XMwKVzWDF9CoUxEbUmM7CQrKeOZas=
 github.com/tidwall/redlog v0.0.0-20170204190734-550629ebbfa9 h1:UaKqBNPFP34MjxJarhxUwlCdn60KuRN08uLC+Bxo348=
 github.com/tidwall/redlog v0.0.0-20170204190734-550629ebbfa9/go.mod h1:NssoNA+Uwqd5WHKkVwAzO7AT6VuG3wiC8r5nBqds3Ao=
 github.com/tidwall/redlog v0.0.0-20180507234857-bbed90f29893 h1:aGyVYs0o1pThR9i+SuYCG/VqWibHkUXl9kIMZGhAXDw=
