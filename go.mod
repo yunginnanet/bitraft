@@ -18,7 +18,7 @@ require (
 	github.com/spf13/pflag v1.0.3
 	github.com/stretchr/testify v1.4.0
 	github.com/syndtr/goleveldb v0.0.0-20161227110519-23851d93a229 // indirect
-	github.com/tidwall/finn v0.1.0
+	github.com/tidwall/finn v0.1.2
 	github.com/tidwall/raft-boltdb v0.0.0-20160909211738-25b87f2c5677 // indirect
 	github.com/tidwall/raft-fastlog v0.0.0-20160922202426-2f0d0a0ce558 // indirect
 	github.com/tidwall/raft-leveldb v0.0.0-20170127185243-ada471496dc9 // indirect
