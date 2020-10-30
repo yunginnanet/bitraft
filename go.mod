@@ -10,7 +10,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.6.1
 	github.com/tidwall/finn v0.1.2
-	github.com/tidwall/redcon v1.3.2
+	github.com/tidwall/redcon v1.3.3
 	golang.org/x/net v0.0.0-20190724013045-ca1201d0de80 // indirect
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22 // indirect
 	gopkg.in/vmihailenco/msgpack.v2 v2.9.1 // indirect

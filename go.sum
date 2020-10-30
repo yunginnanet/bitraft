@@ -128,6 +128,7 @@ github.com/hashicorp/go-uuid v1.0.1/go.mod h1:6SBZvOh/SIDV7/2o3Jml5SYk/TvGqwFJ/b
 github.com/hashicorp/go.net v0.0.1/go.mod h1:hjKkEWcCURg++eb33jQU7oqQcI9XDCnUzHA0oac0k90=
 github.com/hashicorp/golang-lru v0.5.0 h1:CL2msUPvZTLb5O648aiLNJw3hnBxN2+1Jq8rCOH9wdo=
 github.com/hashicorp/golang-lru v0.5.0/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
+github.com/hashicorp/golang-lru v0.5.1 h1:0hERBMJE1eitiLkihrMvRVBYAkpHzc/J3QdDN+dAcgU=
 github.com/hashicorp/golang-lru v0.5.1/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
 github.com/hashicorp/hcl v1.0.0/go.mod h1:E5yfLk+7swimpb2L/Alb/PJmXilQ/rhwaUYs4T20WEQ=
 github.com/hashicorp/logutils v1.0.0/go.mod h1:QIAnNjmIWmVIIkWDTG1z5v++HQmx9WQRO+LraFDTW64=
@@ -291,6 +292,8 @@ github.com/tidwall/redcon v1.2.1 h1:k34E1ROcdCvL9Ks7R40ycLApPABbWuXplFHQxuqzn80=
 github.com/tidwall/redcon v1.2.1/go.mod h1:bdYBm4rlcWpst2XMwKVzWDF9CoUxEbUmM7CQrKeOZas=
 github.com/tidwall/redcon v1.3.2 h1:8INx/Nm3VSUbDUT16TH1rMgYQsbXNqy9xcX70edHXbo=
 github.com/tidwall/redcon v1.3.2/go.mod h1:bdYBm4rlcWpst2XMwKVzWDF9CoUxEbUmM7CQrKeOZas=
+github.com/tidwall/redcon v1.3.3 h1:BkvIOVPSMw7JnPlyjaSCckgEhvXCy3U5GgKkssveax4=
+github.com/tidwall/redcon v1.3.3/go.mod h1:bdYBm4rlcWpst2XMwKVzWDF9CoUxEbUmM7CQrKeOZas=
 github.com/tidwall/redlog v0.0.0-20170204190734-550629ebbfa9 h1:UaKqBNPFP34MjxJarhxUwlCdn60KuRN08uLC+Bxo348=
 github.com/tidwall/redlog v0.0.0-20170204190734-550629ebbfa9/go.mod h1:NssoNA+Uwqd5WHKkVwAzO7AT6VuG3wiC8r5nBqds3Ao=
 github.com/tidwall/redlog v0.0.0-20180507234857-bbed90f29893 h1:aGyVYs0o1pThR9i+SuYCG/VqWibHkUXl9kIMZGhAXDw=
