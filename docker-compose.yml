@@ -1,12 +1,13 @@
-version: "3.7"
+---
+version: "3.8"
 
 services:
   seed:
     image: prologic/bitraft
     entrypoint:
-      - timeout # this seed fires up the cluster after which it is no longer needed
-      - -sTERM  # this is the same signal as docker would send on a scale down / stop
-      - -t30    # terminate after 30 seconds
+      - timeout
+      - -sTERM
+      - "30"
     command:
       - /bitraft
       - -d=/tmp/bitraft
@@ -30,7 +31,7 @@ services:
     networks:
       - bitraft
     deploy:
-      mode: global                                      ##this will deploy to all nodes that
+      mode: global
 
 networks:
   bitraft:
