@@ -8,7 +8,7 @@ require (
 	github.com/prologic/bitcask v0.3.10
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 	github.com/tidwall/finn v0.1.2
 	github.com/tidwall/redcon v1.4.0
 	golang.org/x/exp v0.0.0-20201008143054-e3b2a7f2fdc7 // indirect
