@@ -10,7 +10,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0
 	github.com/tidwall/finn v0.1.2
-	github.com/tidwall/redcon v1.4.0
+	github.com/tidwall/redcon v1.4.1
 	golang.org/x/exp v0.0.0-20201008143054-e3b2a7f2fdc7 // indirect
 	golang.org/x/net v0.0.0-20190724013045-ca1201d0de80 // indirect
 	golang.org/x/sys v0.0.0-20201118182958-a01c418693c7 // indirect
