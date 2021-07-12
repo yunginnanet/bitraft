@@ -1,11 +1,11 @@
-module github.com/prologic/bitraft
+module git.mills.io/prologic/bitraft
 
 require (
 	github.com/golang/leveldb v0.0.0-20170107010102-259d9253d719 // indirect
 	github.com/hashicorp/go-sockaddr v1.0.2
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
-	github.com/prologic/bitcask v0.3.10
+	git.mills.io/prologic/bitcask v0.3.10
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0

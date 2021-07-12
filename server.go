@@ -5,7 +5,7 @@ import (
 	"compress/gzip"
 	"encoding/binary"
 	"errors"
-	"github.com/prologic/bitcask"
+	"git.mills.io/prologic/bitcask"
 	log "github.com/sirupsen/logrus"
 	"github.com/tidwall/finn"
 	"github.com/tidwall/redcon"

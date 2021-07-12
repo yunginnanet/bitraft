@@ -1,15 +1,15 @@
 # bitraft
 
-![](https://github.com/prologic/bitraft/workflows/Coverage/badge.svg)
-![](https://github.com/prologic/bitraft/workflows/Docker/badge.svg)
-![](https://github.com/prologic/bitraft/workflows/Go/badge.svg)
-![](https://github.com/prologic/bitraft/workflows/ReviewDog/badge.svg)
+![](https://git.mills.io/prologic/bitraft/workflows/Coverage/badge.svg)
+![](https://git.mills.io/prologic/bitraft/workflows/Docker/badge.svg)
+![](https://git.mills.io/prologic/bitraft/workflows/Go/badge.svg)
+![](https://git.mills.io/prologic/bitraft/workflows/ReviewDog/badge.svg)
 
 [![Go Report Card](https://goreportcard.com/badge/prologic/bitraft)](https://goreportcard.com/report/prologic/bitraft)
-[![GitHub license](https://img.shields.io/github/license/prologic/bitraft.svg)](https://github.com/prologic/bitraft)
-[![Github all releases](https://img.shields.io/github/downloads/prologic/bitraft/total.svg)](https://github.com/prologic/bitraft/releases)
+[![GitHub license](https://img.shields.io/github/license/prologic/bitraft.svg)](https://git.mills.io/prologic/bitraft)
+[![Github all releases](https://img.shields.io/github/downloads/prologic/bitraft/total.svg)](https://git.mills.io/prologic/bitraft/releases)
 
-A [Bitcask](https://github.com/prologic/bitcask) Distributed Key/Value store
+A [Bitcask](https://git.mills.io/prologic/bitcask) Distributed Key/Value store
 using [Raft](https://github.com/hashicorp/raft) for concensus with a
 [Redis](https://redis.org) compatible API written in [Go](https://golang.org).
 
@@ -24,7 +24,7 @@ Based off of [kvnode](https://github.com/tidwall/kvnode).
 ## Usage
 
 ```#!bash
-$ go get github.com/prologic/bitraft
+$ go get git.mills.io/prologic/bitraft
 $ bitraft
 ```
 
