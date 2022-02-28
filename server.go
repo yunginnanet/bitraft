@@ -64,21 +64,7 @@ func ListenAndServe(addr, join, dir, logdir string, consistency, durability finn
 		Backend:     finn.FastLog,
 		Consistency: consistency,
 		Durability:  durability,
-		ConnAccept: func(conn redcon.Conn) bool {
-			if tcp, ok := conn.NetConn().(*net.TCPConn); ok {
-				if err := tcp.SetKeepAlive(true); err != nil {
-					log.Warn().Err(err).Caller().Str("caller", tcp.RemoteAddr().String()).
-						Msg("could not set keepalive")
-				} else {
-					err := tcp.SetKeepAlivePeriod(defaultTCPKeepAlive)
-					if err != nil {
-						log.Warn().Err(err).Caller().Str("caller", tcp.RemoteAddr().String()).
-							Msg("could not set keepalive period")
-					}
-				}
-			}
-			return true
-		},
+		ConnAccept:  AcceptConnection,
 	}
 	m, err := NewMachine(dir)
 	if err != nil {
@@ -93,6 +79,23 @@ func ListenAndServe(addr, join, dir, logdir string, consistency, durability finn
 	select {
 	// blocking, there's no way out
 	}
+}
+
+// AcceptConnection handles an incoming TCP connection.
+func AcceptConnection(conn redcon.Conn) bool {
+	if tcp, ok := conn.NetConn().(*net.TCPConn); ok {
+		if err := tcp.SetKeepAlive(true); err != nil {
+			log.Warn().Err(err).Caller().Str("caller", tcp.RemoteAddr().String()).
+				Msg("could not set keepalive")
+		} else {
+			err := tcp.SetKeepAlivePeriod(defaultTCPKeepAlive)
+			if err != nil {
+				log.Warn().Err(err).Caller().Str("caller", tcp.RemoteAddr().String()).
+					Msg("could not set keepalive period")
+			}
+		}
+	}
+	return true
 }
 
 type cmdHandler func(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error)
