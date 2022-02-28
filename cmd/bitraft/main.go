@@ -10,6 +10,8 @@ import (
 	"github.com/rs/zerolog/log"
 	flag "github.com/spf13/pflag"
 	"github.com/tidwall/finn"
+
+	"git.tcp.direct/kayos/bitraft/server"
 )
 
 var (
@@ -61,7 +63,7 @@ func main() {
 	}
 
 	if parseSnapshot != "" {
-		err := WriteRedisCommandsFromSnapshot(os.Stdout, parseSnapshot)
+		err := server.WriteRedisCommandsFromSnapshot(os.Stdout, parseSnapshot)
 		if err != nil {
 			log.Warn().Err(err).Msg("failed to parse snapshot")
 			os.Exit(1)
@@ -109,7 +111,7 @@ func main() {
 	bind = mustParse(bind)
 	log.Debug().Str("bind", bind).Msg("bind parsed")
 
-	if err := ListenAndServe(bind, join, dir, logdir, lconsistency, ldurability); err != nil {
+	if err := server.ListenAndServe(bind, join, dir, logdir, lconsistency, ldurability); err != nil {
 		log.Warn().Msgf("%v", err)
 	}
 }

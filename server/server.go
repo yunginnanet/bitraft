@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"bufio"
@@ -112,7 +112,7 @@ type Machine struct {
 	cmdMapper map[string]cmdHandler
 }
 
-// NewMachine constructs ta Machine type for our finite state machine for Raft consensus that will power our database.
+// NewMachine constructs a Machine type for our finite state machine for Raft consensus that will power our database.
 func NewMachine(dir string) (*Machine, error) {
 	kvm := &Machine{
 		dir: dir,

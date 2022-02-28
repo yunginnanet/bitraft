@@ -1,11 +1,12 @@
 *~*
 *.bak
+bitraft
 
 /coverage.txt
 /bitraft
 /tmp
 /dist
-/data
+*/data
 /data1
 /data2
 /.idea
