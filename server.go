@@ -5,10 +5,6 @@ import (
 	"compress/gzip"
 	"encoding/binary"
 	"errors"
-	"git.mills.io/prologic/bitcask"
-	log "github.com/sirupsen/logrus"
-	"github.com/tidwall/finn"
-	"github.com/tidwall/redcon"
 	"io"
 	"net"
 	"os"
@@ -17,6 +13,11 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"git.tcp.direct/Mirrors/bitcask-mirror"
+	"github.com/rs/zerolog/log"
+	"github.com/tidwall/finn"
+	"github.com/tidwall/redcon"
 )
 
 const defaultTCPKeepAlive = time.Minute * 5
@@ -66,13 +67,13 @@ func ListenAndServe(addr, join, dir, logdir string, consistency, durability finn
 		ConnAccept: func(conn redcon.Conn) bool {
 			if tcp, ok := conn.NetConn().(*net.TCPConn); ok {
 				if err := tcp.SetKeepAlive(true); err != nil {
-					log.Warningf("could not set keepalive: %s",
-						tcp.RemoteAddr().String())
+					log.Warn().Err(err).Caller().Str("caller", tcp.RemoteAddr().String()).
+						Msg("could not set keepalive")
 				} else {
 					err := tcp.SetKeepAlivePeriod(defaultTCPKeepAlive)
 					if err != nil {
-						log.Warningf("could not set keepalive period: %s",
-							tcp.RemoteAddr().String())
+						log.Warn().Err(err).Caller().Str("caller", tcp.RemoteAddr().String()).
+							Msg("could not set keepalive period")
 					}
 				}
 			}
@@ -94,20 +95,28 @@ func ListenAndServe(addr, join, dir, logdir string, consistency, durability finn
 	}
 }
 
+type cmdHandler func(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error)
+
 // Machine is the FSM for the Raft consensus
 type Machine struct {
-	mu     sync.RWMutex
-	dir    string
-	db     *bitcask.Bitcask
-	dbPath string
-	addr   string
-	closed bool
+	mu        sync.RWMutex
+	dir       string
+	db        *bitcask.Bitcask
+	dbPath    string
+	addr      string
+	closed    bool
+	cmdMapper map[string]cmdHandler
 }
 
 func NewMachine(dir, addr string) (*Machine, error) {
 	kvm := &Machine{
 		dir:  dir,
 		addr: addr,
+	}
+	kvm.cmdMapper = map[string]cmdHandler{
+		"echo": kvm.cmdEcho, "set": kvm.cmdSet,
+		"get": kvm.cmdGet, "del": kvm.cmdDel,
+		"keys": kvm.cmdKeys, "flushdb": kvm.cmdFlushdb,
 	}
 	var err error
 	kvm.dbPath = filepath.Join(dir, "node.db")
@@ -126,31 +135,28 @@ func (kvm *Machine) Close() error {
 	return nil
 }
 
-func (kvm *Machine) Command(
-	m finn.Applier, conn redcon.Conn, cmd redcon.Command,
-) (interface{}, error) {
-	switch strings.ToLower(string(cmd.Args[0])) {
-	default:
-		log.Warningf("unknown command: %s\n", cmd.Args[0])
-		return nil, finn.ErrUnknownCommand
-	case "echo":
-		return kvm.cmdEcho(m, conn, cmd)
-	case "set":
-		return kvm.cmdSet(m, conn, cmd)
-	case "get":
-		return kvm.cmdGet(m, conn, cmd)
-	case "del":
-		return kvm.cmdDel(m, conn, cmd)
-	case "keys":
-		return kvm.cmdKeys(m, conn, cmd)
-	case "flushdb":
-		return kvm.cmdFlushdb(m, conn, cmd)
-	case "shutdown":
-		log.Warningf("shutting down")
+func (kvm *Machine) Command(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
+	slog := log.With().Str("caller", conn.RemoteAddr()).Str("received", string(cmd.Args[0])).Logger()
+	slog.Trace().Msg(string(cmd.Raw))
+
+	strCmd := strings.ToLower(string(cmd.Args[0]))
+	handler, ok := kvm.cmdMapper[strCmd]
+	switch {
+	case ok:
+		return handler(m, conn, cmd)
+	case strCmd == "shutdown":
+		slog.Warn().Msg("shutting down")
 		conn.WriteString("OK")
-		conn.Close()
+		err := conn.Close()
+		if err != nil {
+			slog.Debug().Err(err).Caller().Msg("failed to close connection")
+		}
 		os.Exit(0)
 		return nil, nil
+	default:
+		// TODO: do we need to log here if we are returning the error type?
+		slog.Warn().Msg("unknown command")
+		return nil, finn.ErrUnknownCommand
 	}
 }
 
