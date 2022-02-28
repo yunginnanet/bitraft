@@ -6,7 +6,8 @@ import (
 	"strings"
 
 	"github.com/hashicorp/go-sockaddr/template"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	flag "github.com/spf13/pflag"
 	"github.com/tidwall/finn"
 )
@@ -49,9 +50,9 @@ func main() {
 	flag.Parse()
 
 	if debug {
-		log.SetLevel(log.DebugLevel)
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	} else {
-		log.SetLevel(log.InfoLevel)
+		zerolog.SetGlobalLevel(zerolog.InfoLevel)
 	}
 
 	if version {
@@ -62,7 +63,7 @@ func main() {
 	if parseSnapshot != "" {
 		err := WriteRedisCommandsFromSnapshot(os.Stdout, parseSnapshot)
 		if err != nil {
-			log.Warningf("%v", err)
+			log.Warn().Err(err).Msg("failed to parse snapshot")
 			os.Exit(1)
 		}
 		return
@@ -71,7 +72,7 @@ func main() {
 	var lconsistency finn.Level
 	switch strings.ToLower(consistency) {
 	default:
-		log.Warningf("invalid --consistency")
+		log.Warn().Msg("invalid --consistency")
 	case "low":
 		lconsistency = finn.Low
 	case "medium", "med":
@@ -83,7 +84,7 @@ func main() {
 	var ldurability finn.Level
 	switch strings.ToLower(durability) {
 	default:
-		log.Warningf("invalid --durability")
+		log.Warn().Msg("invalid --durability")
 	case "low":
 		ldurability = finn.Low
 	case "medium", "med":
@@ -99,16 +100,16 @@ func main() {
 	mustParse := func(addr string) string {
 		r, err := template.Parse(addr)
 		if err != nil {
-			log.WithError(err).Fatalf("error parsing addr %s: %s", addr, err)
+			log.Fatal().Err(err).Msgf("error parsing addr %s: %s", addr, err)
 		}
 		return r
 	}
 
-	log.WithField("bind", bind).Debug("bind raw")
+	log.Debug().Str("bind", bind).Msg("bind raw")
 	bind = mustParse(bind)
-	log.WithField("bind", bind).Debug("bind parsed")
+	log.Debug().Str("bind", bind).Msg("bind parsed")
 
 	if err := ListenAndServe(bind, join, dir, logdir, lconsistency, ldurability); err != nil {
-		log.Warningf("%v", err)
+		log.Warn().Msgf("%v", err)
 	}
 }
