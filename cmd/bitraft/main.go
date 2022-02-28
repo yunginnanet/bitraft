@@ -7,7 +7,6 @@ import (
 
 	"github.com/hashicorp/go-sockaddr/template"
 	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/log"
 	flag "github.com/spf13/pflag"
 	"github.com/tidwall/finn"
 
@@ -15,9 +14,11 @@ import (
 )
 
 var (
-	debug           bool
-	trace           bool
-	version         bool
+	debug   bool
+	trace   bool
+	version bool
+	nocolor bool
+
 	maxDatafileSize int
 
 	bind          string
@@ -27,6 +28,8 @@ var (
 	consistency   string
 	durability    string
 	parseSnapshot string
+
+	log zerolog.Logger
 )
 
 func init() {
@@ -37,7 +40,9 @@ func init() {
 
 	flag.BoolVarP(&version, "version", "V", false, "display version information")
 	flag.BoolVarP(&debug, "debug", "D", false, "enable debug logging")
-	flag.BoolVarP(&trace, "trace", "v", false, "enable trace logging")
+	flag.BoolVarP(&trace, "trace", "T", false, "enable trace logging")
+	// TODO: stop underlying logger from using colors from.. kvnode? when this is called.
+	flag.BoolVar(&nocolor, "no-color", false, "do not use colors during logging")
 
 	flag.IntVar(&maxDatafileSize, "max-datafile-size", 1<<20, "maximum datafile size in bytes")
 
@@ -48,6 +53,8 @@ func init() {
 	flag.StringVar(&consistency, "consistency", "high", "Consistency (low,medium,high)")
 	flag.StringVar(&durability, "durability", "high", "Durability (low,medium,high)")
 	flag.StringVar(&parseSnapshot, "parse-snapshot", "", "Parse and output a snapshot to Redis format")
+
+	log = zerolog.New(&zerolog.ConsoleWriter{NoColor: nocolor, Out: os.Stdout}).With().Timestamp().Logger()
 }
 
 func main() {
