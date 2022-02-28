@@ -1,12 +1,53 @@
 package server
 
 import (
+	"os"
 	"path/filepath"
+	"strings"
 
 	"git.tcp.direct/Mirrors/bitcask-mirror"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"github.com/tidwall/finn"
 	"github.com/tidwall/redcon"
 )
+
+func newSubLog(conn redcon.Conn, cmd redcon.Command) *zerolog.Logger {
+	slog := log.With().Logger()
+	if conn != nil {
+		slog = slog.With().Str("caller", conn.NetConn().RemoteAddr().String()).Logger()
+	}
+	if len(cmd.Raw) > 1 {
+		slog = slog.With().Str("cmd", string(cmd.Raw)).Logger()
+	}
+	return &slog
+}
+
+// Command is a callback for incoming Redis commands.
+func (kvm *Machine) Command(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
+	slog := newSubLog(conn, cmd)
+	slog.Trace().Msg(string(cmd.Raw))
+
+	strCmd := strings.ToLower(string(cmd.Args[0]))
+	handler, ok := kvm.cmdMapper[strCmd]
+	switch {
+	case ok:
+		return handler(m, conn, cmd)
+	case strCmd == "shutdown":
+		slog.Warn().Msg("shutting down")
+		conn.WriteString("OK")
+		err := conn.Close()
+		if err != nil {
+			slog.Debug().Err(err).Caller().Msg("failed to close connection")
+		}
+		os.Exit(0)
+		return nil, nil
+	default:
+		// TODO: do we need to log here if we are returning the error type?
+		slog.Warn().Msg("unknown command")
+		return nil, finn.ErrUnknownCommand
+	}
+}
 
 func (kvm *Machine) cmdSet(
 	m finn.Applier, conn redcon.Conn, cmd redcon.Command,
