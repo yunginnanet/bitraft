@@ -16,6 +16,7 @@ import (
 
 var (
 	debug           bool
+	trace           bool
 	version         bool
 	maxDatafileSize int
 
@@ -36,6 +37,7 @@ func init() {
 
 	flag.BoolVarP(&version, "version", "V", false, "display version information")
 	flag.BoolVarP(&debug, "debug", "D", false, "enable debug logging")
+	flag.BoolVarP(&trace, "trace", "v", false, "enable trace logging")
 
 	flag.IntVar(&maxDatafileSize, "max-datafile-size", 1<<20, "maximum datafile size in bytes")
 
@@ -51,9 +53,12 @@ func init() {
 func main() {
 	flag.Parse()
 
-	if debug {
+	switch {
+	case debug:
 		zerolog.SetGlobalLevel(zerolog.DebugLevel)
-	} else {
+	case trace:
+		zerolog.SetGlobalLevel(zerolog.TraceLevel)
+	default:
 		zerolog.SetGlobalLevel(zerolog.InfoLevel)
 	}
 
