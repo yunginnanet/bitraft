@@ -29,6 +29,7 @@ var (
 func trimPattern(glob string) string {
 	escaped := false
 	pattern := ""
+parse:
 	for _, char := range glob {
 		switch char {
 		case '\\':
@@ -38,24 +39,23 @@ func trimPattern(glob string) string {
 			}
 		case '*':
 			if !escaped {
-				goto out
+				break parse
 			}
 			pattern = pattern + string(char)
 		case '?':
 			if !escaped {
-				goto out
+				break parse
 			}
 			pattern = pattern + string(char)
 		case '[':
 			if !escaped {
-				goto out
+				break parse
 			}
 			pattern = pattern + string(char)
 		default:
 			pattern = pattern + string(char)
 		}
 	}
-out:
 	return pattern
 }
 
