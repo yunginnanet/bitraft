@@ -80,7 +80,7 @@ func ListenAndServe(addr, join, dir, logdir string, consistency, durability finn
 			return true
 		},
 	}
-	m, err := NewMachine(dir, addr)
+	m, err := NewMachine(dir)
 	if err != nil {
 		return err
 	}
@@ -99,19 +99,20 @@ type cmdHandler func(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (inte
 
 // Machine is the FSM for the Raft consensus
 type Machine struct {
-	mu        sync.RWMutex
-	dir       string
-	db        *bitcask.Bitcask
-	dbPath    string
-	addr      string
+	mu     sync.RWMutex
+	dir    string
+	db     *bitcask.Bitcask
+	dbPath string
+	// TODO: what was "addr" for?
+	//	addr      string
 	closed    bool
 	cmdMapper map[string]cmdHandler
 }
 
-func NewMachine(dir, addr string) (*Machine, error) {
+func NewMachine(dir string) (*Machine, error) {
 	kvm := &Machine{
-		dir:  dir,
-		addr: addr,
+		dir: dir,
+		// addr: addr,
 	}
 	kvm.cmdMapper = map[string]cmdHandler{
 		"echo": kvm.cmdEcho, "set": kvm.cmdSet,
@@ -127,12 +128,13 @@ func NewMachine(dir, addr string) (*Machine, error) {
 	return kvm, nil
 }
 
-func (kvm *Machine) Close() error {
+// Close shuts down our finite state machine and presumably, our database.
+func (kvm *Machine) Close() (err error) {
 	kvm.mu.Lock()
 	defer kvm.mu.Unlock()
-	kvm.db.Close()
+	err = kvm.db.Close()
 	kvm.closed = true
-	return nil
+	return
 }
 
 func (kvm *Machine) Command(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
@@ -160,6 +162,8 @@ func (kvm *Machine) Command(m finn.Applier, conn redcon.Conn, cmd redcon.Command
 	}
 }
 
+// Restore attempts to restore a database from rd, which implements an io.Reader.
+// This is meant to restore data exported by the Snapshot function.
 func (kvm *Machine) Restore(rd io.Reader) error {
 	kvm.mu.Lock()
 	defer kvm.mu.Unlock()
@@ -270,6 +274,7 @@ func WriteRedisCommandsFromSnapshot(wr io.Writer, snapshotPath string) error {
 	return err
 }
 
+// Snapshot writes a snapshot of the database to wr, which implements io.Writer.
 func (kvm *Machine) Snapshot(wr io.Writer) error {
 	kvm.mu.RLock()
 	defer kvm.mu.RUnlock()
