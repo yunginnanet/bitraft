@@ -1,5 +1,8 @@
 *~*
 *.bak
+*.swp
+bitraft
+*.log
 
 /coverage.txt
 /bitraft

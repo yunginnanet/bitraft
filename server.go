@@ -15,7 +15,7 @@ import (
 	"time"
 
 	"git.tcp.direct/Mirrors/bitcask-mirror"
-	"github.com/rs/zerolog/log"
+	"github.com/rs/zerolog"
 	"github.com/tidwall/finn"
 	"github.com/tidwall/redcon"
 )
@@ -137,8 +137,20 @@ func (kvm *Machine) Close() (err error) {
 	return
 }
 
+func newSubLog(conn redcon.Conn, cmd redcon.Command) *zerolog.Logger {
+	slog := log.With().Logger()
+	if conn != nil {
+		slog = slog.With().Str("caller", conn.NetConn().RemoteAddr().String()).Logger()
+	}
+	if len(cmd.Raw) > 1 {
+		slog = slog.With().Str("cmd", string(cmd.Raw)).Logger()
+	}
+	return &slog
+}
+
+// Command is a callback for incoming Redis commands.
 func (kvm *Machine) Command(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
-	slog := log.With().Str("caller", conn.RemoteAddr()).Str("received", string(cmd.Args[0])).Logger()
+	slog := newSubLog(conn, cmd)
 	slog.Trace().Msg(string(cmd.Raw))
 
 	strCmd := strings.ToLower(string(cmd.Args[0]))
