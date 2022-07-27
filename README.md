@@ -1,13 +1,7 @@
 # bitraft
 
-![](https://git.mills.io/prologic/bitraft/workflows/Coverage/badge.svg)
-![](https://git.mills.io/prologic/bitraft/workflows/Docker/badge.svg)
-![](https://git.mills.io/prologic/bitraft/workflows/Go/badge.svg)
-![](https://git.mills.io/prologic/bitraft/workflows/ReviewDog/badge.svg)
-
-[![Go Report Card](https://goreportcard.com/badge/prologic/bitraft)](https://goreportcard.com/report/prologic/bitraft)
-[![GitHub license](https://img.shields.io/github/license/prologic/bitraft.svg)](https://git.mills.io/prologic/bitraft)
-[![Github all releases](https://img.shields.io/github/downloads/prologic/bitraft/total.svg)](https://git.mills.io/prologic/bitraft/releases)
+[![Go Report Card](https://goreportcard.com/badge/yunginnanet/bitraft)](https://goreportcard.com/report/yunginnanet/bitraft)
+[![GoDoc](https://godoc.org/git.tcp.direct/kayos/bitraft?status.svg)](https://pkg.go.dev/git.tcp.direct/kayos/bitraft)
 
 A [Bitcask](https://git.mills.io/prologic/bitcask) Distributed Key/Value store
 using [Raft](https://github.com/hashicorp/raft) for concensus with a
