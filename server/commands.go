@@ -24,7 +24,7 @@ func newSubLog(conn redcon.Conn, cmd redcon.Command) *zerolog.Logger {
 }
 
 // Command is a callback for incoming Redis commands.
-func (kvm *Machine) Command(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
+func (kvm *StateMachine) Command(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
 	slog := newSubLog(conn, cmd)
 	slog.Trace().Msg(string(cmd.Raw))
 
@@ -43,13 +43,11 @@ func (kvm *Machine) Command(m finn.Applier, conn redcon.Conn, cmd redcon.Command
 		os.Exit(0)
 		return nil, nil
 	default:
-		// TODO: do we need to log here if we are returning the error type?
-		slog.Warn().Msg("unknown command")
 		return nil, finn.ErrUnknownCommand
 	}
 }
 
-func (kvm *Machine) cmdSet(
+func (kvm *StateMachine) cmdSet(
 	m finn.Applier, conn redcon.Conn, cmd redcon.Command,
 ) (interface{}, error) {
 	if len(cmd.Args) != 3 {
@@ -68,7 +66,7 @@ func (kvm *Machine) cmdSet(
 	)
 }
 
-func (kvm *Machine) cmdEcho(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
+func (kvm *StateMachine) cmdEcho(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
 	if len(cmd.Args) != 2 {
 		return nil, finn.ErrWrongNumberOfArguments
 	}
@@ -76,7 +74,7 @@ func (kvm *Machine) cmdEcho(m finn.Applier, conn redcon.Conn, cmd redcon.Command
 	return nil, nil
 }
 
-func (kvm *Machine) cmdGet(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
+func (kvm *StateMachine) cmdGet(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
 	if len(cmd.Args) != 2 {
 		return nil, finn.ErrWrongNumberOfArguments
 	}
@@ -99,7 +97,7 @@ func (kvm *Machine) cmdGet(m finn.Applier, conn redcon.Conn, cmd redcon.Command)
 	)
 }
 
-func (kvm *Machine) cmdDel(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
+func (kvm *StateMachine) cmdDel(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
 	var startIdx = 1
 	return m.Apply(conn, cmd,
 		func() (interface{}, error) {
@@ -124,7 +122,7 @@ func (kvm *Machine) cmdDel(m finn.Applier, conn redcon.Conn, cmd redcon.Command)
 	)
 }
 
-func (kvm *Machine) cmdKeys(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
+func (kvm *StateMachine) cmdKeys(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
 	if len(cmd.Args) != 2 {
 		return nil, errWrongNumberOfArguments
 	}
@@ -153,7 +151,7 @@ func (kvm *Machine) cmdKeys(m finn.Applier, conn redcon.Conn, cmd redcon.Command
 	)
 }
 
-func (kvm *Machine) cmdFlushdb(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
+func (kvm *StateMachine) cmdFlushdb(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error) {
 	if len(cmd.Args) != 1 {
 		return nil, finn.ErrWrongNumberOfArguments
 	}

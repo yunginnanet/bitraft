@@ -19,6 +19,7 @@ var (
 	errWrongNumberOfArguments = errors.New("wrong number of arguments")
 )
 
+//goland:noinspection GoExportedElementShouldHaveComment
 func ListenAndServe(addr, join, dir, logdir string, consistency, durability finn.Level) error {
 	opts := finn.Options{
 		Backend:     finn.FastLog,
@@ -26,7 +27,7 @@ func ListenAndServe(addr, join, dir, logdir string, consistency, durability finn
 		Durability:  durability,
 		ConnAccept:  AcceptConnection,
 	}
-	m, err := NewMachine(dir)
+	m, err := NewStateMachine(dir)
 	if err != nil {
 		return err
 	}
@@ -60,8 +61,8 @@ func AcceptConnection(conn redcon.Conn) bool {
 
 type cmdHandler func(m finn.Applier, conn redcon.Conn, cmd redcon.Command) (interface{}, error)
 
-// Machine is the FSM for the Raft consensus.
-type Machine struct {
+// StateMachine is the FSM for the Raft consensus.
+type StateMachine struct {
 	mu     sync.RWMutex
 	dir    string
 	db     *bitcask.Bitcask
@@ -72,9 +73,9 @@ type Machine struct {
 	cmdMapper map[string]cmdHandler
 }
 
-// NewMachine constructs a Machine type for our finite state machine for Raft consensus that will power our database.
-func NewMachine(dir string) (*Machine, error) {
-	kvm := &Machine{
+// NewStateMachine constructs a StateMachine type for our finite state machine for Raft consensus that will power our database.
+func NewStateMachine(dir string) (*StateMachine, error) {
+	kvm := &StateMachine{
 		dir: dir,
 		// addr: addr,
 	}
@@ -93,7 +94,7 @@ func NewMachine(dir string) (*Machine, error) {
 }
 
 // Close shuts down our finite state machine and presumably, our database.
-func (kvm *Machine) Close() (err error) {
+func (kvm *StateMachine) Close() (err error) {
 	kvm.mu.Lock()
 	defer kvm.mu.Unlock()
 	err = kvm.db.Close()

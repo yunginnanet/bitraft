@@ -13,7 +13,7 @@ import (
 
 // Restore attempts to restore a database from rd, which implements an io.Reader.
 // This is meant to restore data exported by the Snapshot function.
-func (kvm *Machine) Restore(rd io.Reader) error {
+func (kvm *StateMachine) Restore(rd io.Reader) error {
 	kvm.mu.Lock()
 	defer kvm.mu.Unlock()
 	var err error
@@ -124,7 +124,7 @@ func WriteRedisCommandsFromSnapshot(wr io.Writer, snapshotPath string) error {
 }
 
 // Snapshot writes a snapshot of the database to wr, which implements io.Writer.
-func (kvm *Machine) Snapshot(wr io.Writer) error {
+func (kvm *StateMachine) Snapshot(wr io.Writer) error {
 	kvm.mu.RLock()
 	defer kvm.mu.RUnlock()
 	gzw := gzip.NewWriter(wr)
